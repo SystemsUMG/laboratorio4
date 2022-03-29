@@ -1,0 +1,31 @@
+package codigo;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal Igual, Suma, Resta, Multiplicacion, Division, Numero_Real, Variable, ERROR;
+
+non terminal INICIO, SENTENCIA, OPERADOR, MONOMIO;
+
+start with INICIO;
+
+INICIO ::= Variable Igual SENTENCIA | SENTENCIA
+;
+SENTENCIA ::= (MONOMIO OPERADOR MONOMIO)+ | SENTENCIA OPERADOR MONOMIO
+;
+OPERADOR ::= Suma | Resta | Multiplicacion | Division
+;
+MONOMIO ::= Numero_Real Variable | Variable | Numero_Real
+;
