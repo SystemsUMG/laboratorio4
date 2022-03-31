@@ -296,7 +296,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             txtAnalizarSin.setForeground(new Color(25, 111, 61));
         } catch (Exception ex) {
             Symbol sym = s.getS();
-            txtAnalizarSin.setText("Error de sintaxis.\nLinea: " + (sym.right + 1) + "\nColumna: " + (sym.left +1) + "\nTexto: \"" + sym.value + "\"");
+            txtAnalizarSin.setText("Error de sintaxis.\nLinea: " + (sym.right + 1) + "\nColumna: " + (sym.left +1) + "\nTexto: " + sym.value + "\n");
             txtAnalizarSin.setForeground(Color.red);
         }
     }//GEN-LAST:event_btnAnalizarSinActionPerformed
