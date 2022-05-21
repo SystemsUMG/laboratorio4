@@ -8,6 +8,8 @@ parser code
     
     public void syntax_error(Symbol s){
         this.s = s;
+        System.out.println("Error Sintáctico en la Línea " + (s.left) +
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+".");
     }
 
     public Symbol getS(){
@@ -15,17 +17,19 @@ parser code
 }
 :};
 
-terminal Igual, Suma, Resta, Multiplicacion, Division, Numero_Real, Variable, ERROR;
+terminal Igual, Suma, Resta, Multiplicacion, Division, Variable, ERROR;
+terminal String Numero_Real;
 
-non terminal INICIO, SENTENCIA, OPERADOR, MONOMIO;
+non terminal INICIO, SENTENCIA;
+non terminal Double MONOMIO;
 
 start with INICIO;
 
-INICIO ::= Variable Igual SENTENCIA | SENTENCIA
-;
-SENTENCIA ::= MONOMIO OPERADOR MONOMIO | SENTENCIA OPERADOR MONOMIO
-;
-OPERADOR ::= Suma | Resta | Multiplicacion | Division
-;
-MONOMIO ::= Numero_Real Variable | Variable | Numero_Real
-;
+INICIO ::= Variable Igual SENTENCIA | SENTENCIA;
+
+SENTENCIA ::= MONOMIO:a Suma MONOMIO:b {:System.out.println("El valor de la suma es: "+(a+b));:} |
+              MONOMIO:a Resta MONOMIO:b {:System.out.println("El valor de la resta es: "+(a-b));:} |
+              MONOMIO:a Multiplicacion MONOMIO:b {:System.out.println("El valor de la multiplicacion es: "+(a*b));:} |
+              MONOMIO:a Division MONOMIO:b {:System.out.println("El valor de la division es: "+(a/b));:};
+
+MONOMIO ::= Numero_Real:a {:RESULT=new Double(a);:} ;
